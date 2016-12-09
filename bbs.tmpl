@@ -1,0 +1,37 @@
+<html>
+	<head>
+		<script type="text/javascript" src="/public/js/bbs.js"></script>
+		<title>app engine - golang BBS</title>
+	</head>
+	<body>
+		<div>
+			<form method="post" action="post">
+				<div>
+					<label for="handleName">ハンドルネーム:</label>
+					<input type="text" name="handleName" />
+					<input type="submit" value="書き込む" />
+				</div>
+				<div>
+					<textarea name="comment" rows="5" cols="48"></textarea>
+				</div>
+			</form>
+		</div>
+		<div>
+		{{range .}}
+		<dl>
+			<dt>{{.HandleName}}  :  {{.EntryTimeView}} : {{.Like}} likes.
+				<form method="post" action="/like">
+					<input type="hidden" name="key" value="{{.Id}}"/>
+					<input type="submit" value="いいね!"/>
+				</form>
+				<form method="post" action="/delete">
+					<input type="hidden" name="key" value="{{.Id}}"/>
+					<input type="submit" value="削除" />
+				</form>
+			</dt>
+			<dd>{{.Comment}}</dd>
+		</dl>
+		{{end}}
+		</div>
+	</body>
+</html>
